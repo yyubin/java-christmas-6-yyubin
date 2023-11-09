@@ -43,10 +43,4 @@ public enum Menu {
         return type;
     }
 
-    public static Menu parse(String input) {
-        return Arrays.stream(values())
-                .filter(menu -> menu.name.equals(input))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
-    }
 }

@@ -3,6 +3,7 @@ package christmas.util;
 import christmas.config.Menu;
 import christmas.view.Messages;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MenuValidator {
@@ -20,7 +21,7 @@ public class MenuValidator {
     }
 
     private static Menu parseMenu(String menuString) {
-        return Menu.parse(menuString);
+        return menuParse(menuString);
     }
 
     private static int parseQuantity(String quantityString) {
@@ -39,5 +40,12 @@ public class MenuValidator {
         if (quantity <= 0) {
             throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
         }
+    }
+
+    public static Menu menuParse(String input) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getName().equals(input))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
     }
 }
