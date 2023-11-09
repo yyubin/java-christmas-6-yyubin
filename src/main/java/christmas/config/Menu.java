@@ -1,5 +1,9 @@
 package christmas.config;
 
+import christmas.view.Messages;
+
+import java.util.Arrays;
+
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6_000, MenuType.APPETIZER),
     TAPAS("타파스", 5_500, MenuType.APPETIZER),
@@ -37,5 +41,12 @@ public enum Menu {
 
     public MenuType getType() {
         return type;
+    }
+
+    public static Menu parse(String input) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.name.equals(input))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
     }
 }
