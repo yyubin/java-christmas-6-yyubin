@@ -1,7 +1,8 @@
-package christmas.config;
+package christmas.model;
 
 public enum EventGift {
-    CHAMPAGNE("샴페인", 1, 25000);
+    CHAMPAGNE("샴페인", 1, 25000),
+    NO_GIFT("상품없음", 0, 0);
 
     private final String giftName;
     private final int giftCount;

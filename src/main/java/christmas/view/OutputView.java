@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.config.BadgeType;
-import christmas.config.EventGift;
+import christmas.model.EventGift;
 import christmas.model.BenefitDetail;
 
 import java.util.List;
