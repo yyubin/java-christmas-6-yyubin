@@ -3,21 +3,8 @@ package christmas.util;
 import christmas.config.Menu;
 import christmas.view.Messages;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-public class OrderParser {
-    public static Map<Menu, Integer> parseOrder(String orderInput) {
-        List<String> orders = Arrays.asList(orderInput.split(","));
-        return orders.stream()
-                .map(OrderParser::parseOrderEntry)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-
-    private static Map.Entry<Menu, Integer> parseOrderEntry(String order) {
-        String[] menuAndQuantity = order.split("-");
+public class MenuValidator {
+    public static void validateOrderEntry(String[] menuAndQuantity) {
         if (menuAndQuantity.length != 2) {
             throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
         }
@@ -33,7 +20,5 @@ public class OrderParser {
         if (quantity <= 0) {
             throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
         }
-
-        return Map.entry(menu, quantity);
     }
 }
