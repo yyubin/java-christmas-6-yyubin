@@ -18,21 +18,10 @@ public class OrderParser {
 
     private static Map.Entry<Menu, Integer> parseOrderEntry(String order) {
         String[] menuAndQuantity = order.split("-");
-        if (menuAndQuantity.length != 2) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
+        MenuValidator.validateOrderEntry(menuAndQuantity);
 
         Menu menu = Menu.parse(menuAndQuantity[0]);
-        int quantity;
-        try {
-            quantity = Integer.parseInt(menuAndQuantity[1]);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
-
-        if (quantity <= 0) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
+        int quantity = Integer.parseInt(menuAndQuantity[1]);
 
         return Map.entry(menu, quantity);
     }
