@@ -3,31 +3,33 @@ package christmas.util;
 import christmas.config.Menu;
 import christmas.view.Messages;
 
+import java.util.List;
+
 public class MenuValidator {
-    public static void validateOrderEntry(String[] menuAndQuantity) {
-        validateArrayLength(menuAndQuantity);
-        Menu menu = parseMenu(menuAndQuantity[0]);
-        int quantity = parseQuantity(menuAndQuantity[1]);
+    public static void validateOrderEntry(List<String> menuAndQuantity) {
+        validateListSize(menuAndQuantity);
+        Menu menu = parseMenu(menuAndQuantity.get(0));
+        int quantity = parseQuantity(menuAndQuantity.get(1));
         validatePositiveQuantity(quantity);
     }
 
-    private static void validateArrayLength(String[] menuAndQuantity) {
-        if (menuAndQuantity.length != 2) {
+    private static void validateListSize(List<String> menuAndQuantity) {
+        if (menuAndQuantity.size() != 2) {
             throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
         }
     }
 
     private static Menu parseMenu(String menuString) {
-        try {
-            return Menu.parse(menuString);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
+        return Menu.parse(menuString);
     }
 
     private static int parseQuantity(String quantityString) {
         try {
-            return Integer.parseInt(quantityString);
+            int quantity = Integer.parseInt(quantityString);
+            if (quantity <= 0) {
+                throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
+            }
+            return quantity;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
         }

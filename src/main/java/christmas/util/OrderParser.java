@@ -17,11 +17,11 @@ public class OrderParser {
     }
 
     private static Map.Entry<Menu, Integer> parseOrderEntry(String order) {
-        String[] menuAndQuantity = order.split("-");
+        List<String> menuAndQuantity = Arrays.asList(order.split("-"));
         MenuValidator.validateOrderEntry(menuAndQuantity);
 
-        Menu menu = Menu.parse(menuAndQuantity[0]);
-        int quantity = Integer.parseInt(menuAndQuantity[1]);
+        Menu menu = Menu.parse(menuAndQuantity.get(0));
+        int quantity = Integer.parseInt(menuAndQuantity.get(1));
 
         return Map.entry(menu, quantity);
     }
