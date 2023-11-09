@@ -1,6 +1,6 @@
 package christmas.util;
 
-import christmas.config.Menu;
+import christmas.model.Menu;
 import christmas.view.Messages;
 
 import java.util.Arrays;

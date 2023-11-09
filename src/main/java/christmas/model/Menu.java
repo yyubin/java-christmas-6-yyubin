@@ -1,8 +1,4 @@
-package christmas.config;
-
-import christmas.view.Messages;
-
-import java.util.Arrays;
+package christmas.model;
 
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6_000, MenuType.APPETIZER),

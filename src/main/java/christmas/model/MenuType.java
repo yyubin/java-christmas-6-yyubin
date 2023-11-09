@@ -1,4 +1,4 @@
-package christmas.config;
+package christmas.model;
 
 public enum MenuType {
     APPETIZER,
