@@ -2,9 +2,9 @@ package christmas.controller;
 
 import christmas.config.EventDate;
 import christmas.model.*;
-import christmas.util.DateValidator;
-import christmas.util.EventHandler;
-import christmas.util.MenuValidator;
+import christmas.validator.DateValidator;
+import christmas.service.EventService;
+import christmas.validator.MenuValidator;
 import christmas.util.OrderParser;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -21,10 +21,10 @@ public class OrderController {
     private List<BenefitDetail> benefitDetails;
     private int totalBenefitsAmount;
 
-    private final EventHandler eventHandler;
+    private final EventService eventService;
 
-    public OrderController(EventHandler eventHandler) {
-        this.eventHandler = eventHandler;
+    public OrderController(EventService eventService) {
+        this.eventService = eventService;
     }
 
     public void run() {
@@ -92,27 +92,27 @@ public class OrderController {
     }
 
     private void printTotalOrderAmount() {
-        this.totalOrderAmount = eventHandler.calculateTotalOrderAmount(this.orderMenus);
+        this.totalOrderAmount = eventService.calculateTotalOrderAmount(this.orderMenus);
         OutputView.printPaymentAmount(this.totalOrderAmount);
     }
 
     private void printEventGift() {
-        EventGiftResult eventGift = eventHandler.calculateEventGift(this.totalOrderAmount);
+        EventGiftResult eventGift = eventService.calculateEventGift(this.totalOrderAmount);
         OutputView.printEventGift(eventGift);
     }
 
     private void printBenfits() {
-        this.benefitDetails = eventHandler.calculateBenefits(orderDate, orderMenus, totalOrderAmount);
+        this.benefitDetails = eventService.calculateBenefits(orderDate, orderMenus, totalOrderAmount);
         OutputView.printBenefitDetails(this.benefitDetails);
     }
 
     private void printTotalBenefitsAmount() {
-        this.totalBenefitsAmount = eventHandler.calculateTotalBenefitsAmount(this.benefitDetails);
+        this.totalBenefitsAmount = eventService.calculateTotalBenefitsAmount(this.benefitDetails);
         OutputView.printTotalBenefitAmount(this.totalBenefitsAmount);
     }
 
     private void printEventBadge() {
-        OutputView.printEventBadge(eventHandler.calculateEventBadge(this.totalBenefitsAmount));
+        OutputView.printEventBadge(eventService.calculateEventBadge(this.totalBenefitsAmount));
     }
 
 }

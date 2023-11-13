@@ -1,4 +1,4 @@
-package christmas.util;
+package christmas.service;
 
 import christmas.config.BadgeType;
 import christmas.config.EventType;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventHandler {
+public class EventService {
     public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {
         int totalAmount = 0;
         for (OrderMenu order : orderMenus) {

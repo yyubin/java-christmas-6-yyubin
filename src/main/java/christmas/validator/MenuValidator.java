@@ -1,4 +1,4 @@
-package christmas.util;
+package christmas.validator;
 
 import christmas.model.MenuType;
 import christmas.model.OrderMenu;
