@@ -1,10 +1,10 @@
 package christmas.view;
 
-import christmas.config.EventMonth;
+import christmas.config.EventDate;
 
 public class Messages {
-    public static final String GREETING = "안녕하세요! 우테코 식당 " + EventMonth.DECEMBER + "월 이벤트 플래너입니다.";
-    public static final String ASK_VISIT_DATE = EventMonth.DECEMBER + "월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
+    public static final String GREETING = "안녕하세요! 우테코 식당 " + EventDate.DECEMBER_2023.getEventMonth() + "월 이벤트 플래너입니다.";
+    public static final String ASK_VISIT_DATE = EventDate.DECEMBER_2023.getEventMonth() + "월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
     public static final String INVALID_DATE_ERROR = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
 
     public static final String ASK_MENU_ORDER = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
@@ -28,6 +28,6 @@ public class Messages {
 
     public static final String EXPECTED_PAYMENT_AMOUNT = "<할인 후 예상 결제 금액>";
 
-    public static final String DECEMBER_EVENT_BADGE = "<" + EventMonth.DECEMBER + "월 이벤트 배지>";
+    public static final String DECEMBER_EVENT_BADGE = "<" + EventDate.DECEMBER_2023.getEventMonth() + "월 이벤트 배지>";
     public static final String NO_BADGE = "없음";
 }
