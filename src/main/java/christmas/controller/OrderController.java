@@ -12,10 +12,10 @@ import java.util.List;
 
 public class OrderController {
 
-    public int calculateTotalOrderAmount(List<OrderMenu> orderList) {
+    public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {
         int totalAmount = 0;
 
-        for (OrderMenu order : orderList) {
+        for (OrderMenu order : orderMenus) {
             totalAmount += order.getMenu().getPrice() * order.getQuantity();
         }
 
