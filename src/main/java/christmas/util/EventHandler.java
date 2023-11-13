@@ -26,11 +26,19 @@ public class EventHandler {
         return EventGiftEvent.noGiftGiven();
     }
 
-    public List<BenefitDetail> calculateBenefits(LocalDate orderDate) {
+    public List<BenefitDetail> calculateBenefits(LocalDate orderDate, List<OrderMenu> orderMenus) {
         List<BenefitDetail> benefitDetails = new ArrayList<>();
         benefitDetails.add(calculateChristmasDdayEvent(orderDate));
-
+        benefitDetails.add(calculateWeekEvent(orderDate, orderMenus));
+        benefitDetails.add(calculateSpecialDiscount(orderDate));
         return benefitDetails;
+    }
+
+    private boolean isApplyEvent(LocalDate orderDate, EventType eventType) {
+        if (orderDate.isBefore(eventType.getStartDate()) || orderDate.isAfter(eventType.getEndDate())) {
+            return false;
+        }
+        return true;
     }
 
     public BenefitDetail calculateChristmasDdayEvent(LocalDate orderDate) {
@@ -39,20 +47,39 @@ public class EventHandler {
             int christmasDdayEventAmount = christmasDdayEvent.calculateChristmasDdayDiscount(orderDate);
             return new BenefitDetail(EventType.CHRISTMAS_DDAY, christmasDdayEventAmount);
         }
-        return new BenefitDetail(EventType.CHRISTMAS_DDAY, 0);
+        return new BenefitDetail(EventType.NONE, 0);
     }
 
-    public boolean isApplyEvent(LocalDate orderDate, EventType eventType) {
-        if (orderDate.isBefore(eventType.getStartDate()) || orderDate.isAfter(eventType.getEndDate())) {
-            return false;
+    public BenefitDetail calculateWeekEvent(LocalDate orderDate, List<OrderMenu> orderMenus) {
+        if (isApplyEvent(orderDate, EventType.WEEKDAY_DISCOUNT) && isApplyEvent(orderDate, EventType.WEEKEND_DISCOUNT)) {
+            WeekEvent weekEvent = pickWeekdayEventOrWeekendEvent(orderDate);
+            int discountAmount = calculateWeekEventAmount(orderMenus, weekEvent);
+            return new BenefitDetail(weekEvent.getEventType(), discountAmount);
         }
-        return true;
+        return new BenefitDetail(EventType.NONE, 0);
     }
 
-    public WeekEvent calculateWeekEvent(Integer eventDay) {
-        return WeekEvent.getDayOfWeek(LocalDate.of(
-                EventDate.DECEMBER_2023.getEventYear(),
-                EventDate.DECEMBER_2023.getEventMonth(),
-                eventDay));
+    public BenefitDetail calculateSpecialDiscount(LocalDate orderDate) {
+        if (isApplyEvent(orderDate, EventType.SPECIAL_DISCOUNT)) {
+            SpecialDiscountEvent specialDiscountEvent = SpecialDiscountEvent.calculateSpecialDiscount(orderDate);
+            return new BenefitDetail(EventType.SPECIAL_DISCOUNT, specialDiscountEvent.getDiscountAmount());
+        }
+        return new BenefitDetail(EventType.NONE, 0);
+    }
+
+    private int calculateWeekEventAmount(List<OrderMenu> orderMenus, WeekEvent applydWeekEvent) {
+        int discountAmount = 0;
+        for (OrderMenu orderMenu: orderMenus) {
+            if (orderMenu.getMenu().getType() == applydWeekEvent.getEventMenuType()) {
+                discountAmount += applydWeekEvent.getDiscountAmount();
+            }
+        }
+        return discountAmount;
+    }
+
+
+
+    private WeekEvent pickWeekdayEventOrWeekendEvent(LocalDate orderDate) {
+        return WeekEvent.getDayOfWeek(orderDate);
     }
 }

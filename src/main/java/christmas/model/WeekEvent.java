@@ -1,20 +1,34 @@
 package christmas.model;
 
+import christmas.config.EventType;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public enum WeekEvent {
-    WEEKDAY_DISCOUNT("평일 할인", MenuType.DESSERT, 2023),
-    WEEKEND_DISCOUNT("주말 할인", MenuType.MAIN, 2023);
+    WEEKDAY_DISCOUNT(EventType.WEEKDAY_DISCOUNT, MenuType.DESSERT, 2023),
+    WEEKEND_DISCOUNT(EventType.WEEKEND_DISCOUNT, MenuType.MAIN, 2023);
 
-    private String eventName;
-    private MenuType eventMenuType;
-    private Integer discountAmount;
+    private final EventType eventType;
+    private final MenuType eventMenuType;
+    private final Integer discountAmount;
 
-    WeekEvent(String eventName, MenuType eventMenuType, Integer discountAmount) {
-        this.eventName = eventName;
+    WeekEvent(EventType eventType, MenuType eventMenuType, Integer discountAmount) {
+        this.eventType = eventType;
         this.eventMenuType = eventMenuType;
         this.discountAmount = discountAmount;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public MenuType getEventMenuType() {
+        return eventMenuType;
+    }
+
+    public Integer getDiscountAmount() {
+        return discountAmount;
     }
 
     public static WeekEvent getDayOfWeek(LocalDate date) {
