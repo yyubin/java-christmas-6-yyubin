@@ -1,6 +1,5 @@
 package christmas.util;
 
-import christmas.config.EventDate;
 import christmas.config.EventType;
 import christmas.config.TotalOrderAmount;
 import christmas.model.*;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventHandler {
-
     public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {
         int totalAmount = 0;
         for (OrderMenu order : orderMenus) {
@@ -19,18 +17,12 @@ public class EventHandler {
         return totalAmount;
     }
 
-    public EventGiftEvent calculateEventGift(int totalOrderAmount) {
-        if (totalOrderAmount >= TotalOrderAmount.EVENT_GIFT_THRESHOLD.getAmount()) {
-            return EventGiftEvent.giftGiven(EventGift.CHAMPAGNE);
-        }
-        return EventGiftEvent.noGiftGiven();
-    }
-
-    public List<BenefitDetail> calculateBenefits(LocalDate orderDate, List<OrderMenu> orderMenus) {
+    public List<BenefitDetail> calculateBenefits(LocalDate orderDate, List<OrderMenu> orderMenus, int totalOrderAmount) {
         List<BenefitDetail> benefitDetails = new ArrayList<>();
         benefitDetails.add(calculateChristmasDdayEvent(orderDate));
         benefitDetails.add(calculateWeekEvent(orderDate, orderMenus));
         benefitDetails.add(calculateSpecialDiscount(orderDate));
+        benefitDetails.add(calculateEventGiftAmount(orderDate, totalOrderAmount));
         return benefitDetails;
     }
 
@@ -77,9 +69,24 @@ public class EventHandler {
         return discountAmount;
     }
 
-
-
     private WeekEvent pickWeekdayEventOrWeekendEvent(LocalDate orderDate) {
         return WeekEvent.getDayOfWeek(orderDate);
+    }
+
+    public BenefitDetail calculateEventGiftAmount(LocalDate orderDate, int totalOrderAmount) {
+        if (isApplyEvent(orderDate, EventType.GIFT_EVENT)) {
+            EventGiftResult eventGiftResult = calculateEventGift(totalOrderAmount);
+            if (eventGiftResult.isGiftGiven()) {
+                return new BenefitDetail(EventType.GIFT_EVENT, eventGiftResult.getEventGift().getGiftAmount());
+            }
+        }
+        return new BenefitDetail(EventType.NONE, 0);
+    }
+
+    public EventGiftResult calculateEventGift(int totalOrderAmount) {
+        if (totalOrderAmount >= TotalOrderAmount.EVENT_GIFT_THRESHOLD.getAmount()) {
+            return EventGiftResult.giftGiven(EventGift.CHAMPAGNE);
+        }
+        return EventGiftResult.noGiftGiven();
     }
 }

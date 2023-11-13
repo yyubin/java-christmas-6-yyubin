@@ -3,7 +3,7 @@ package christmas.view;
 import christmas.config.BadgeType;
 import christmas.model.EventGift;
 import christmas.model.BenefitDetail;
-import christmas.model.EventGiftEvent;
+import christmas.model.EventGiftResult;
 import christmas.model.OrderMenu;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public static void printEventGift(EventGiftEvent eventGift) {
+    public static void printEventGift(EventGiftResult eventGift) {
         System.out.println(Messages.GIFT_HEADER);
         if (eventGift.getEventGift() == EventGift.NO_GIFT) {
             System.out.println(Messages.NO_GIFT);

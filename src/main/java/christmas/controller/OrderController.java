@@ -18,7 +18,7 @@ public class OrderController {
     private String InputOrderDay;
     private List<OrderMenu> orderMenus;
     private int totalOrderAmount;
-    private EventGiftEvent eventGift;
+    private EventGiftResult eventGift;
 
     private final EventHandler eventHandler;
 
