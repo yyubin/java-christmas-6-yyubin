@@ -4,14 +4,14 @@
     import java.time.LocalDate;
     import java.time.Month;
 
-    public enum SpecialDiscount {
+    public enum SpecialDiscountEvent {
         CALENDAR_STAR("특별 할인", 1000),
         NONE("없음", 0);
 
         private final String discountName;
         private final int discountAmount;
 
-        SpecialDiscount(String discountName, int discountAmount) {
+        SpecialDiscountEvent(String discountName, int discountAmount) {
             this.discountName = discountName;
             this.discountAmount = discountAmount;
         }
@@ -24,7 +24,7 @@
             return discountAmount;
         }
 
-        public static SpecialDiscount calculateSpecialDiscount(LocalDate orderDate) {
+        public static SpecialDiscountEvent calculateSpecialDiscount(LocalDate orderDate) {
             if (isSaturday(orderDate) || isChristmasDay(orderDate)) {
                 return CALENDAR_STAR;
             }
