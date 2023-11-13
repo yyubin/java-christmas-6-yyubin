@@ -1,5 +1,6 @@
 package christmas.util;
 
+import christmas.config.BadgeType;
 import christmas.config.EventType;
 import christmas.config.TotalOrderAmount;
 import christmas.model.*;
@@ -102,5 +103,20 @@ public class EventHandler {
             totalBenefitsAmount += benefitDetail.getBenefitAmount();
         }
         return totalBenefitsAmount;
+    }
+
+    public BadgeType calculateEventBadge(int totalBenefitsAmount) {
+        if (totalBenefitsAmount >= BadgeType.SANTA.getThresholdAmount()) {
+            return BadgeType.SANTA;
+        }
+
+        if (totalBenefitsAmount >= BadgeType.TREE.getThresholdAmount()) {
+            return BadgeType.TREE;
+        }
+
+        if (totalBenefitsAmount >= BadgeType.STAR.getThresholdAmount()) {
+            return BadgeType.STAR;
+        }
+        return BadgeType.NONE;
     }
 }
