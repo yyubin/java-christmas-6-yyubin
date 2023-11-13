@@ -95,4 +95,12 @@ public class EventHandler {
         }
         return EventGiftResult.noGiftGiven();
     }
+
+    public int calculateTotalBenefitsAmount(List<BenefitDetail> benefitDetails) {
+        int totalBenefitsAmount = 0;
+        for (BenefitDetail benefitDetail: benefitDetails) {
+            totalBenefitsAmount += benefitDetail.getBenefitAmount();
+        }
+        return totalBenefitsAmount;
+    }
 }
