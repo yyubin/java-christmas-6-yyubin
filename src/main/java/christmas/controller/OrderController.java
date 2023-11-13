@@ -26,6 +26,7 @@ public class OrderController {
         readMenu();
         printEventPreviewHeader();
         printOrderMenus();
+        printTotalOrderAmount();
     }
 
     private void printGreeting() {
@@ -81,13 +82,15 @@ public class OrderController {
         OutputView.printMenu(this.orderMenus);
     }
 
+    private void printTotalOrderAmount() {
+        OutputView.printPaymentAmount(calculateTotalOrderAmount(this.orderMenus));
+    }
+
     public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {
         int totalAmount = 0;
-
         for (OrderMenu order : orderMenus) {
             totalAmount += order.getMenu().getPrice() * order.getQuantity();
         }
-
         return totalAmount;
     }
 
@@ -99,6 +102,8 @@ public class OrderController {
         }
         return List.of(EventGiftEvent.noGiftGiven());
     }
+
+
 
     public WeekEvent calculateWeekEvent(Integer eventDay) {
         return WeekEvent.getDayOfWeek(LocalDate.of(

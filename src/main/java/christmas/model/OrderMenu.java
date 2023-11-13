@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.util.List;
+
 public class OrderMenu {
     private final Menu menu;
     private final int quantity;
@@ -16,4 +18,5 @@ public class OrderMenu {
     public int getQuantity() {
         return quantity;
     }
+
 }
