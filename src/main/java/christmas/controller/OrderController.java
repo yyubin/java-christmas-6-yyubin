@@ -15,7 +15,7 @@ import java.util.List;
 public class OrderController {
 
     private LocalDate orderDate;
-    private String InputOrderDay;
+    private int inputOrderDay;
     private List<OrderMenu> orderMenus;
     private int totalOrderAmount;
     private List<BenefitDetail> benefitDetails;
@@ -30,7 +30,7 @@ public class OrderController {
     public void run() {
         printGreeting();
         readDate();
-        createOrderLocalDate(parseDate());
+        createOrderLocalDate(this.inputOrderDay);
         readMenu();
         printEventPreviewHeader();
         printOrderMenus();
@@ -51,16 +51,13 @@ public class OrderController {
     }
 
     private void validateDate(String orderDate) {
-        if (!DateValidator.validateDate(orderDate)) {
+        try {
+            this.inputOrderDay = DateValidator.validateDate(orderDate);
+
+        } catch (IllegalArgumentException e) {
+            OutputView.print(e.getMessage());
             readDate();
         }
-        if (DateValidator.validateDate(orderDate)) {
-            this.InputOrderDay = orderDate;
-        }
-    }
-
-    private int parseDate() {
-        return DateValidator.parseDate(this.InputOrderDay);
     }
 
     private void createOrderLocalDate(int orderDay) {
