@@ -1,12 +1,12 @@
-package christmas.config;
+package christmas.model;
 
-public enum DdayDiscountAmount {
+public enum ChristmasDdayDiscount {
     START_AMOUNT(1000),
     DAILY_INCREASE(100);
 
     private final int amount;
 
-    DdayDiscountAmount(int amount) {
+    ChristmasDdayDiscount(int amount) {
         this.amount = amount;
     }
 
