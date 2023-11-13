@@ -2,13 +2,13 @@ package christmas.controller;
 
 import christmas.config.EventDate;
 import christmas.config.TotalOrderAmount;
-import christmas.model.EventGift;
-import christmas.model.EventGiftEvent;
-import christmas.model.OrderMenu;
-import christmas.model.WeekEvent;
+import christmas.model.*;
 import christmas.util.DateValidator;
+import christmas.util.MenuValidator;
+import christmas.util.OrderParser;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import org.junit.jupiter.api.Order;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,12 +17,15 @@ public class OrderController {
 
     private LocalDate orderDate;
     private String InputOrderDay;
+    private List<OrderMenu> orderMenus;
 
     public void run() {
         printGreeting();
         readDate();
         createOrderLocalDate(parseDate());
-
+        readMenu();
+        printEventPreviewHeader();
+        printOrderMenus();
     }
 
     private void printGreeting() {
@@ -55,11 +58,27 @@ public class OrderController {
     }
 
     private void readMenu() {
-        String menus = InputView.readMenu();
+        String inputOrderMenus = InputView.readMenu();
+        validateMenu(inputOrderMenus);
     }
 
-    private void validateMenu() {
-        if()
+    private void validateMenu(String inputMenus) {
+        try {
+            List<OrderMenu> orderMenus = OrderParser.validateOrder(inputMenus);
+            MenuValidator.validateOrder(orderMenus);
+            this.orderMenus = orderMenus;
+        } catch (IllegalArgumentException e) {
+            OutputView.print(e.getMessage());
+            readMenu();
+        }
+    }
+
+    private void printEventPreviewHeader() {
+        OutputView.printEventPreviewHeader(orderDate.getMonthValue(), orderDate.getDayOfMonth());
+    }
+
+    private void printOrderMenus() {
+        OutputView.printMenu(this.orderMenus);
     }
 
     public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {

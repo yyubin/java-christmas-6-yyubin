@@ -2,26 +2,40 @@ package christmas.util;
 
 import christmas.model.Menu;
 import christmas.model.OrderMenu;
+import christmas.view.Messages;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrderParser {
-    public static List<OrderMenu> parseOrder(String orderInput) {
-        List<String> orders = Arrays.asList(orderInput.split(","));
 
-        return orders.stream()
-                .map(OrderParser::parseOrderEntry)
-                .collect(Collectors.toList());
+    public static List<OrderMenu> validateOrder(String inputMenus) {
+        String[] menuEntries = inputMenus.split(",");
+        List<OrderMenu> orderMenus = new ArrayList<>();
+
+        for (String entry : menuEntries) {
+            OrderMenu orderMenu = parseOrderEntry(entry.trim());
+            orderMenus.add(orderMenu);
+        }
+
+        return orderMenus;
     }
 
-    private static OrderMenu parseOrderEntry(String order) {
-        List<String> menuAndQuantity = Arrays.asList(order.split("-"));
-        MenuValidator.validateOrderEntry(menuAndQuantity);
+    private static OrderMenu parseOrderEntry(String entry) {
+        String[] menuAndQuantity = entry.split("-");
 
-        Menu menu = MenuValidator.menuParse(menuAndQuantity.get(0));
-        int quantity = Integer.parseInt(menuAndQuantity.get(1));
+        if (menuAndQuantity.length != 2) {
+            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
+        }
+
+        String menuName = menuAndQuantity[0].trim();
+        int quantity = Integer.parseInt(menuAndQuantity[1].trim());
+
+        Menu menu = Arrays.stream(Menu.values())
+                .filter(m -> m.getName().equals(menuName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
 
         return new OrderMenu(menu, quantity);
     }

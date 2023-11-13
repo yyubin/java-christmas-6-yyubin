@@ -3,6 +3,7 @@ package christmas.view;
 import christmas.config.BadgeType;
 import christmas.model.EventGift;
 import christmas.model.BenefitDetail;
+import christmas.model.OrderMenu;
 
 import java.util.List;
 
@@ -28,14 +29,15 @@ public class OutputView {
         System.out.println(Messages.INVALID_ORDER_ERROR);
     }
 
-    public static void printEventPreviewHeader() {
-        System.out.println(Messages.EVENT_PREVIEW_HEADER);
+    public static void printEventPreviewHeader(int eventMonth, int eventDay) {
+        System.out.println(String.format(Messages.EVENT_PREVIEW_HEADER, eventMonth, eventDay));
+        System.out.println();
     }
 
-    public static void printMenu(List<String> orderedMenu) {
+    public static void printMenu(List<OrderMenu> orderedMenu) {
         System.out.println(Messages.MENU_HEADER);
-        for (String menu : orderedMenu) {
-            System.out.println(menu);
+        for (OrderMenu menu : orderedMenu) {
+            System.out.println(String.format(Messages.ORDER_MENU, menu.getMenu().getName(), menu.getQuantity()));
         }
         System.out.println();
     }

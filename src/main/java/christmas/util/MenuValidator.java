@@ -1,55 +1,25 @@
 package christmas.util;
 
-import christmas.model.Menu;
 import christmas.model.MenuType;
 import christmas.model.OrderMenu;
 import christmas.view.Messages;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MenuValidator {
-    public static void validateOrderEntry(List<String> menuAndQuantity) {
-        validateListSize(menuAndQuantity);
-        Menu menu = parseMenu(menuAndQuantity.get(0));
-        int quantity = parseQuantity(menuAndQuantity.get(1));
-        validatePositiveQuantity(quantity);
+
+    public static void validateOrder(List<OrderMenu> orderMenus) {
+        validateMaxOrderCount(orderMenus);
+        validateNonExclusiveBeverageOrder(orderMenus);
     }
 
-    private static void validateListSize(List<String> menuAndQuantity) {
-        if (menuAndQuantity.size() != 2) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
-    }
-
-    private static Menu parseMenu(String menuString) {
-        return menuParse(menuString);
-    }
-
-    private static int parseQuantity(String quantityString) {
-        try {
-            int quantity = Integer.parseInt(quantityString);
-            if (quantity <= 0) {
-                throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-            }
-            return quantity;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
-    }
-
-    private static void validatePositiveQuantity(int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
-    }
-
-    public static void validateNonExclusiveBeverageOrder(List<OrderMenu> orderMenus) {
+    private static void validateNonExclusiveBeverageOrder(List<OrderMenu> orderMenus) {
         boolean hasNonBeverage = false;
 
         for (OrderMenu order : orderMenus) {
             if (order.getMenu().getType() != MenuType.BEVERAGE && order.getQuantity() > 0) {
                 hasNonBeverage = true;
+                break;
             }
         }
 
@@ -68,10 +38,4 @@ public class MenuValidator {
         }
     }
 
-    public static Menu menuParse(String input) {
-        return Arrays.stream(Menu.values())
-                .filter(menu -> menu.getName().equals(input))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
-    }
 }

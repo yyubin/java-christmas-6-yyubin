@@ -12,6 +12,7 @@ public class Messages {
 
     public static final String EVENT_PREVIEW_HEADER = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     public static final String MENU_HEADER = "<주문 메뉴>";
+    public static final String ORDER_MENU = "%s %d개";
     public static final String PAYMENT_AMOUNT_HEADER = "<할인 전 총주문 금액>";
 
     public static final String PAYMENT_AMOUNT = "%d원";
