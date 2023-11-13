@@ -7,7 +7,7 @@ public class DateValidator {
     public static boolean validateDate(String orderDate) {
         try {
             int parsedDate = Integer.parseInt(orderDate);
-            if (parsedDate <= 0) {
+            if (parsedDate <= 0 || parsedDate > 32) {
                 OutputView.print(Messages.INVALID_DATE_ERROR);
                 return false;
             }
