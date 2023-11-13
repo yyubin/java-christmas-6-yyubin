@@ -6,11 +6,61 @@ import christmas.model.EventGift;
 import christmas.model.EventGiftEvent;
 import christmas.model.OrderMenu;
 import christmas.model.WeekEvent;
+import christmas.util.DateValidator;
+import christmas.view.InputView;
+import christmas.view.OutputView;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class OrderController {
+
+    private LocalDate orderDate;
+    private String InputOrderDay;
+
+    public void run() {
+        printGreeting();
+        readDate();
+        createOrderLocalDate(parseDate());
+
+    }
+
+    private void printGreeting() {
+        OutputView.printGreeting();
+    }
+
+    private void readDate() {
+        String orderDate = InputView.readDate();
+        validateDate(orderDate);
+    }
+
+    private void validateDate(String orderDate) {
+        if (!DateValidator.validateDate(orderDate)) {
+            readDate();
+        }
+        if (DateValidator.validateDate(orderDate)) {
+            this.InputOrderDay = orderDate;
+        }
+    }
+
+    private int parseDate() {
+        return DateValidator.parseDate(this.InputOrderDay);
+    }
+
+    private void createOrderLocalDate(int orderDay) {
+        this.orderDate = LocalDate.of(
+                EventDate.DECEMBER_2023.getEventYear(),
+                EventDate.DECEMBER_2023.getEventMonth(),
+                orderDay);
+    }
+
+    private void readMenu() {
+        String menus = InputView.readMenu();
+    }
+
+    private void validateMenu() {
+        if()
+    }
 
     public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {
         int totalAmount = 0;

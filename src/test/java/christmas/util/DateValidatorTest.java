@@ -3,16 +3,15 @@ package christmas.util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DateValidatorTest {
     @Test
     @DisplayName("유효한 날짜 검증 테스트")
     void validateValidDate() {
         String validDate = "10";
-        int result = DateValidator.validateDate(validDate);
-        assertEquals(10, result);
+        boolean result = DateValidator.validateDate(validDate);
+        assertTrue(result);
     }
 
     @Test

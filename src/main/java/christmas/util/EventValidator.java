@@ -8,5 +8,4 @@ public class EventValidator {
         return totalAmount >= TotalOrderAmount.EVENT_GIFT_THRESHOLD.getAmount();
     }
 
-
 }

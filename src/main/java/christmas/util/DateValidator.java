@@ -1,25 +1,25 @@
 package christmas.util;
 
 import christmas.view.Messages;
+import christmas.view.OutputView;
 
 public class DateValidator {
-    public static int validateDate(String orderDate) {
+    public static boolean validateDate(String orderDate) {
         try {
             int parsedDate = Integer.parseInt(orderDate);
             if (parsedDate < 0) {
-                throw new IllegalArgumentException(Messages.INVALID_DATE_ERROR);
+                OutputView.print(Messages.INVALID_DATE_ERROR);
+                return false;
             }
-            return parseDate(orderDate);
+            return true;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.INVALID_DATE_ERROR);
+            OutputView.print(Messages.INVALID_DATE_ERROR);
+            return false;
         }
     }
 
-    private static int parseDate(String orderDate) {
-        try {
-            return Integer.parseInt(orderDate);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.INVALID_DATE_ERROR);
-        }
+    public static int parseDate(String orderDate) {
+        return Integer.parseInt(orderDate);
+
     }
 }
