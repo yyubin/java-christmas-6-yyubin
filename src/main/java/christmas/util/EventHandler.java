@@ -19,10 +19,12 @@ public class EventHandler {
 
     public List<BenefitDetail> calculateBenefits(LocalDate orderDate, List<OrderMenu> orderMenus, int totalOrderAmount) {
         List<BenefitDetail> benefitDetails = new ArrayList<>();
+
         benefitDetails.add(calculateChristmasDdayEvent(orderDate));
         benefitDetails.add(calculateWeekEvent(orderDate, orderMenus));
         benefitDetails.add(calculateSpecialDiscount(orderDate));
         benefitDetails.add(calculateEventGiftAmount(orderDate, totalOrderAmount));
+
         return benefitDetails;
     }
 
@@ -52,18 +54,22 @@ public class EventHandler {
     }
 
     public BenefitDetail calculateSpecialDiscount(LocalDate orderDate) {
-        if (isApplyEvent(orderDate, EventType.SPECIAL_DISCOUNT)) {
-            SpecialDiscountEvent specialDiscountEvent = SpecialDiscountEvent.calculateSpecialDiscount(orderDate);
+        SpecialDiscountEvent specialDiscountEvent = SpecialDiscountEvent.calculateSpecialDiscount(orderDate);
+        if (isApplyEvent(orderDate, EventType.SPECIAL_DISCOUNT) && isSpecialDiscountNone(specialDiscountEvent)) {
             return new BenefitDetail(EventType.SPECIAL_DISCOUNT, specialDiscountEvent.getDiscountAmount());
         }
         return new BenefitDetail(EventType.NONE, 0);
+    }
+
+    public boolean isSpecialDiscountNone(SpecialDiscountEvent specialDiscountEvent) {
+        return specialDiscountEvent != SpecialDiscountEvent.NONE;
     }
 
     private int calculateWeekEventAmount(List<OrderMenu> orderMenus, WeekEvent applydWeekEvent) {
         int discountAmount = 0;
         for (OrderMenu orderMenu: orderMenus) {
             if (orderMenu.getMenu().getType() == applydWeekEvent.getEventMenuType()) {
-                discountAmount += applydWeekEvent.getDiscountAmount();
+                discountAmount += applydWeekEvent.getDiscountAmount() * orderMenu.getQuantity();
             }
         }
         return discountAmount;

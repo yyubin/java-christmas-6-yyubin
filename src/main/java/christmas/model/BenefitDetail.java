@@ -18,4 +18,5 @@ public class BenefitDetail {
     public int getBenefitAmount() {
         return benefitAmount;
     }
+
 }

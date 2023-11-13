@@ -18,7 +18,7 @@ public class OrderController {
     private String InputOrderDay;
     private List<OrderMenu> orderMenus;
     private int totalOrderAmount;
-    private EventGiftResult eventGift;
+    private List<BenefitDetail> benefitDetails;
 
     private final EventHandler eventHandler;
 
@@ -35,6 +35,7 @@ public class OrderController {
         printOrderMenus();
         printTotalOrderAmount();
         printEventGift();
+        printBenfits();
     }
 
     private void printGreeting() {
@@ -96,12 +97,13 @@ public class OrderController {
     }
 
     private void printEventGift() {
-        this.eventGift = eventHandler.calculateEventGift(this.totalOrderAmount);
-        OutputView.printEventGift(this.eventGift);
+        EventGiftResult eventGift = eventHandler.calculateEventGift(this.totalOrderAmount);
+        OutputView.printEventGift(eventGift);
     }
 
     private void printBenfits() {
-        OutputView.printBenefitDetails();
+        this.benefitDetails = eventHandler.calculateBenefits(orderDate, orderMenus, totalOrderAmount);
+        OutputView.printBenefitDetails(this.benefitDetails);
     }
 
 }

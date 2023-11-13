@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.config.BadgeType;
+import christmas.config.EventType;
 import christmas.model.EventGift;
 import christmas.model.BenefitDetail;
 import christmas.model.EventGiftResult;
@@ -62,13 +63,10 @@ public class OutputView {
 
     public static void printBenefitDetails(List<BenefitDetail> benefitDetails) {
         System.out.println(Messages.BENEFIT_HEADER);
-        if (benefitDetails.isEmpty()) {
-            System.out.println(Messages.NO_BENEFIT);
-            System.out.println();
-            return;
-        }
         for (BenefitDetail benefit : benefitDetails) {
-            System.out.println(String.format(Messages.BENEFIT_CONTENT, benefit.getEventType().getEventName(), benefit.getBenefitAmount()));
+            if (benefit.getEventType() != EventType.NONE && benefit.getBenefitAmount() > 0) {
+                System.out.println(String.format(Messages.BENEFIT_CONTENT, benefit.getEventType().getEventName(), benefit.getBenefitAmount()));
+            }
         }
         System.out.println();
     }
