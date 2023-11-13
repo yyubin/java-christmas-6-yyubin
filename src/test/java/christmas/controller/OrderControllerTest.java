@@ -41,10 +41,10 @@ public class OrderControllerTest {
 
         OrderController orderController = new OrderController();
 
-        List<EventGiftResult> eventGiftResults = orderController.calculateEventGift(orderMenus);
+        List<EventGiftEvent> eventGiftEvents = orderController.calculateEventGift(orderMenus);
 
-        assertEquals(1, eventGiftResults.size());
-        EventGiftResult result = eventGiftResults.get(0);
+        assertEquals(1, eventGiftEvents.size());
+        EventGiftEvent result = eventGiftEvents.get(0);
         assertEquals(EventGift.NO_GIFT, result.getEventGift());
     }
 
@@ -58,10 +58,10 @@ public class OrderControllerTest {
 
         OrderController orderController = new OrderController();
 
-        List<EventGiftResult> eventGiftResults = orderController.calculateEventGift(orderMenus);
+        List<EventGiftEvent> eventGiftEvents = orderController.calculateEventGift(orderMenus);
 
-        assertEquals(1, eventGiftResults.size());
-        EventGiftResult result = eventGiftResults.get(0);
+        assertEquals(1, eventGiftEvents.size());
+        EventGiftEvent result = eventGiftEvents.get(0);
         assertEquals(EventGift.CHAMPAGNE, result.getEventGift());
     }
 

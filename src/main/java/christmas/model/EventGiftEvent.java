@@ -1,10 +1,10 @@
 package christmas.model;
 
-public class EventGiftResult {
+public class EventGiftEvent {
     private final boolean isGiftGiven;
     private final EventGift eventGift;
 
-    public EventGiftResult(boolean isGiftGiven, EventGift eventGift) {
+    public EventGiftEvent(boolean isGiftGiven, EventGift eventGift) {
         this.isGiftGiven = isGiftGiven;
         this.eventGift = eventGift;
     }
@@ -17,11 +17,11 @@ public class EventGiftResult {
         return eventGift;
     }
 
-    public static EventGiftResult giftGiven(EventGift eventGift) {
-        return new EventGiftResult(true, eventGift);
+    public static EventGiftEvent giftGiven(EventGift eventGift) {
+        return new EventGiftEvent(true, eventGift);
     }
 
-    public static EventGiftResult noGiftGiven() {
-        return new EventGiftResult(false, EventGift.NO_GIFT);
+    public static EventGiftEvent noGiftGiven() {
+        return new EventGiftEvent(false, EventGift.NO_GIFT);
     }
 }

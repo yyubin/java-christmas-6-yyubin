@@ -3,7 +3,7 @@ package christmas.controller;
 import christmas.config.EventDate;
 import christmas.config.TotalOrderAmount;
 import christmas.model.EventGift;
-import christmas.model.EventGiftResult;
+import christmas.model.EventGiftEvent;
 import christmas.model.OrderMenu;
 import christmas.model.WeekEvent;
 
@@ -22,13 +22,13 @@ public class OrderController {
         return totalAmount;
     }
 
-    public List<EventGiftResult> calculateEventGift(List<OrderMenu> orderMenus) {
+    public List<EventGiftEvent> calculateEventGift(List<OrderMenu> orderMenus) {
         int totalOrderAmount = calculateTotalOrderAmount(orderMenus);
 
         if (totalOrderAmount >= TotalOrderAmount.EVENT_GIFT_THRESHOLD.getAmount()) {
-            return List.of(EventGiftResult.giftGiven(EventGift.CHAMPAGNE));
+            return List.of(EventGiftEvent.giftGiven(EventGift.CHAMPAGNE));
         }
-        return List.of(EventGiftResult.noGiftGiven());
+        return List.of(EventGiftEvent.noGiftGiven());
     }
 
     public WeekEvent calculateWeekEvent(Integer eventDay) {
