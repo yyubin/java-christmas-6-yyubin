@@ -1,9 +1,6 @@
 package christmas.controller;
 
-import christmas.model.EventGift;
-import christmas.model.EventGiftResult;
-import christmas.model.Menu;
-import christmas.model.OrderMenu;
+import christmas.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -66,5 +63,23 @@ public class OrderControllerTest {
         assertEquals(1, eventGiftResults.size());
         EventGiftResult result = eventGiftResults.get(0);
         assertEquals(EventGift.CHAMPAGNE, result.getEventGift());
+    }
+
+    @DisplayName("주중/주말 할인 이벤트 계산 - 주중 할인")
+    @Test
+    void calculateWeekEventWeekday() {
+        OrderController orderController = new OrderController();
+
+        WeekEvent weekEvent = orderController.calculateWeekEvent(7); // 2023년 12월 7일은 수요일
+        assertEquals(WeekEvent.WEEKDAY_DISCOUNT, weekEvent);
+    }
+
+    @DisplayName("주중/주말 할인 이벤트 계산 - 주말 할인")
+    @Test
+    void calculateWeekEventWeekend() {
+        OrderController orderController = new OrderController();
+
+        WeekEvent weekEvent = orderController.calculateWeekEvent(10); // 2023년 12월 10일은 토요일
+        assertEquals(WeekEvent.WEEKEND_DISCOUNT, weekEvent);
     }
 }
