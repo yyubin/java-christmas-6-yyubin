@@ -5,13 +5,11 @@ import java.time.LocalDate;
 public class ChristmasDdayEvent {
 
     private final boolean isApply;
-    private final Integer discountAmount;
     private final LocalDate eventStartDate;
     private final LocalDate eventEndDate;
 
-    public ChristmasDdayEvent(boolean isApply, Integer discountAmount, LocalDate eventStartDate, LocalDate eventEndDate) {
+    public ChristmasDdayEvent(boolean isApply, LocalDate eventStartDate, LocalDate eventEndDate) {
         this.isApply = isApply;
-        this.discountAmount = discountAmount;
         this.eventStartDate = eventStartDate;
         this.eventEndDate = eventEndDate;
     }
@@ -20,11 +18,10 @@ public class ChristmasDdayEvent {
         return isApply;
     }
 
-    public Integer getDiscountAmount() {
-        return discountAmount;
-    }
-
     public int calculateChristmasDdayDiscount(LocalDate orderDate) {
+        if (!isApply) {
+            return 0;
+        }
         if (orderDate.isBefore(eventStartDate) || orderDate.isAfter(eventEndDate)) {
             return 0;
         }

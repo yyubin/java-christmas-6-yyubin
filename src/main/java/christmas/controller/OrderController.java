@@ -1,7 +1,6 @@
 package christmas.controller;
 
 import christmas.config.EventDate;
-import christmas.config.TotalOrderAmount;
 import christmas.model.*;
 import christmas.util.DateValidator;
 import christmas.util.EventHandler;
@@ -9,7 +8,6 @@ import christmas.util.MenuValidator;
 import christmas.util.OrderParser;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import org.junit.jupiter.api.Order;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +18,7 @@ public class OrderController {
     private String InputOrderDay;
     private List<OrderMenu> orderMenus;
     private int totalOrderAmount;
+    private EventGiftEvent eventGift;
 
     private final EventHandler eventHandler;
 
@@ -97,8 +96,12 @@ public class OrderController {
     }
 
     private void printEventGift() {
-        EventGiftEvent eventGifts = eventHandler.calculateEventGift(this.totalOrderAmount);
-        OutputView.printEventGift(eventGifts);
+        this.eventGift = eventHandler.calculateEventGift(this.totalOrderAmount);
+        OutputView.printEventGift(this.eventGift);
+    }
+
+    private void printBenfits() {
+        OutputView.printBenefitDetails();
     }
 
 }

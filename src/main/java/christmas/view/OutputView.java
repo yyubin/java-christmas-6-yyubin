@@ -68,7 +68,7 @@ public class OutputView {
             return;
         }
         for (BenefitDetail benefit : benefitDetails) {
-            System.out.println(String.format(Messages.BENEFIT_CONTENT, benefit.getBenefitName(), benefit.getBenefitAmount()));
+            System.out.println(String.format(Messages.BENEFIT_CONTENT, benefit.getEventType().getEventName(), benefit.getBenefitAmount()));
         }
         System.out.println();
     }

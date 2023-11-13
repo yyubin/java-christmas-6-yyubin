@@ -1,16 +1,18 @@
 package christmas.model;
 
+import christmas.config.EventType;
+
 public class BenefitDetail {
-    private final String benefitName;
+    private final EventType eventType;
     private final int benefitAmount;
 
-    public BenefitDetail(String benefitName, int benefitAmount) {
-        this.benefitName = benefitName;
+    public BenefitDetail(EventType eventType, int benefitAmount) {
+        this.eventType = eventType;
         this.benefitAmount = benefitAmount;
     }
 
-    public String getBenefitName() {
-        return benefitName;
+    public EventType getEventType() {
+        return eventType;
     }
 
     public int getBenefitAmount() {
