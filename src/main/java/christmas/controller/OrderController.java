@@ -1,10 +1,13 @@
 package christmas.controller;
 
+import christmas.config.EventDate;
 import christmas.config.TotalOrderAmount;
 import christmas.model.EventGift;
 import christmas.model.EventGiftResult;
 import christmas.model.OrderMenu;
+import christmas.model.WeekEvent;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderController {
@@ -26,5 +29,12 @@ public class OrderController {
             return List.of(EventGiftResult.giftGiven(EventGift.CHAMPAGNE));
         }
         return List.of(EventGiftResult.noGiftGiven());
+    }
+
+    public WeekEvent calculateWeekEvent(Integer eventDay) {
+        return WeekEvent.getDayOfWeek(LocalDate.of(
+                EventDate.DECEMBER_2023.getEventYear(),
+                EventDate.DECEMBER_2023.getEventMonth(),
+                eventDay));
     }
 }
