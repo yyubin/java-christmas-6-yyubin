@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +16,7 @@ public class OrderParserTest {
         String validOrderInput = "양송이수프-2,타파스-1,시저샐러드-3";
         String invalidOrderInput = "양송이수프-2,타파스,시저샐러드-3";
 
-        List<OrderMenu> validOrderList = OrderParser.parseOrder(validOrderInput);
+        List<OrderMenu> validOrderList = OrderParser.validateOrder(validOrderInput);
 
         assertAll(
                 () -> assertEquals(2, validOrderList.get(0).getQuantity()),
@@ -28,6 +27,6 @@ public class OrderParserTest {
                 () -> assertEquals(Menu.CAESAR_SALAD, validOrderList.get(2).getMenu())
         );
 
-        assertThrows(IllegalArgumentException.class, () -> OrderParser.parseOrder(invalidOrderInput));
+        assertThrows(IllegalArgumentException.class, () -> OrderParser.validateOrder(invalidOrderInput));
     }
 }
