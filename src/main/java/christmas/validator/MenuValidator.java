@@ -33,7 +33,11 @@ public class MenuValidator {
     }
 
     public static void validateMaxOrderCount(List<OrderMenu> orderMenus) {
-        if (orderMenus.size() > 20) {
+        int orderMenuCnt = 0;
+        for (OrderMenu orderMenu: orderMenus) {
+            orderMenuCnt += orderMenu.getQuantity();
+        }
+        if (orderMenuCnt > 20) {
             throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
         }
     }
