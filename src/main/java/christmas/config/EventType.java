@@ -1,8 +1,6 @@
 package christmas.config;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 public enum EventType {
     CHRISTMAS_DDAY("크리스마스 디데이 할인", LocalDate.of(2023, 12, 1), LocalDate.of(2023, 12, 25)),
@@ -34,7 +32,4 @@ public enum EventType {
         return endDate;
     }
 
-    public static List<EventType> getAllEventTypes() {
-        return Arrays.asList(values());
-    }
 }

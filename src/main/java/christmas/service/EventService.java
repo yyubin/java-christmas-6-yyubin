@@ -118,11 +118,9 @@ public class EventService {
         if (totalBenefitsAmount >= BadgeType.SANTA.getThresholdAmount()) {
             return BadgeType.SANTA;
         }
-
         if (totalBenefitsAmount >= BadgeType.TREE.getThresholdAmount()) {
             return BadgeType.TREE;
         }
-
         if (totalBenefitsAmount >= BadgeType.STAR.getThresholdAmount()) {
             return BadgeType.STAR;
         }

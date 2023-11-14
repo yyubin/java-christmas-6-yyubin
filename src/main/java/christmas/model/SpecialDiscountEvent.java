@@ -16,10 +16,6 @@
             this.discountAmount = discountAmount;
         }
 
-        public String getDiscountName() {
-            return discountName;
-        }
-
         public int getDiscountAmount() {
             return discountAmount;
         }

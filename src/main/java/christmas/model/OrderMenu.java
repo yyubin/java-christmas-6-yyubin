@@ -1,7 +1,5 @@
 package christmas.model;
 
-import java.util.List;
-
 public class OrderMenu {
     private final Menu menu;
     private final int quantity;
