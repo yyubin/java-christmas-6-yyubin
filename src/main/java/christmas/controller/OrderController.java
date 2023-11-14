@@ -38,6 +38,7 @@ public class OrderController {
         printEventGift();
         printBenfits();
         printTotalBenefitsAmount();
+        printExpectedPaymentAmount();
         printEventBadge();
     }
 
@@ -108,7 +109,11 @@ public class OrderController {
 
     private void printTotalBenefitsAmount() {
         this.totalBenefitsAmount = eventService.calculateTotalBenefitsAmount(this.benefitDetails);
-        OutputView.printTotalBenefitAmount(this.totalBenefitsAmount);
+        OutputView.printTotalBenefitAmount(this.totalBenefitsAmount * -1);
+    }
+
+    private void printExpectedPaymentAmount() {
+        OutputView.printExpectedPaymentAmount(this.totalOrderAmount - this.totalBenefitsAmount);
     }
 
     private void printEventBadge() {

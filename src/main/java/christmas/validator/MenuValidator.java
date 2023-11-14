@@ -24,11 +24,11 @@ public class MenuValidator {
         }
 
         if (!hasNonBeverage) {
-            validateFailOnlyBeverageOrder(false);
+            validateFailOnlyBeverageOrder();
         }
     }
 
-    private static void validateFailOnlyBeverageOrder(boolean isOnlyBeverage) {
+    private static void validateFailOnlyBeverageOrder() {
         throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
     }
 
