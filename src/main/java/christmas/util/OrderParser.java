@@ -23,18 +23,28 @@ public class OrderParser {
 
     private static OrderMenu parseOrderEntry(String entry) {
         String[] menuAndQuantity = entry.split("-");
-
         validateMenuQuantityArray(menuAndQuantity);
 
         String menuName = menuAndQuantity[0].trim();
-        int quantity = Integer.parseInt(menuAndQuantity[1].trim());
+        int quantity = parseQuantity(menuAndQuantity);
+        Menu menu = findMenu(menuName);
 
-        Menu menu = Arrays.stream(Menu.values())
+        return new OrderMenu(menu, quantity);
+    }
+
+    private static int parseQuantity(String[] menuAndQuantity) {
+        try {
+            return Integer.parseInt(menuAndQuantity[1].trim());
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR, e);
+        }
+    }
+
+    private static Menu findMenu(String menuName) {
+        return Arrays.stream(Menu.values())
                 .filter(m -> m.getName().equals(menuName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
-
-        return new OrderMenu(menu, quantity);
     }
 
     private static void validateMenuQuantityArray(String[] menuQuantityArray) {

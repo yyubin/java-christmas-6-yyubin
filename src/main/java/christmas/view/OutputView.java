@@ -18,17 +18,8 @@ public class OutputView {
     public static void printAskVisitDate() {
         System.out.println(Messages.ASK_VISIT_DATE);
     }
-
-    public static void printInvalidDateError() {
-        System.out.println(Messages.INVALID_DATE_ERROR);
-    }
-
     public static void printAskOrdersMenu() {
         System.out.println(Messages.ASK_MENU_ORDER);
-    }
-
-    public static void printInvalidOrderError() {
-        System.out.println(Messages.INVALID_ORDER_ERROR);
     }
 
     public static void printEventPreviewHeader(int eventMonth, int eventDay) {
@@ -92,7 +83,6 @@ public class OutputView {
         System.out.println(String.format(Messages.PAYMENT_AMOUNT, expectedPaymentAmount));
         System.out.println();
     }
-
 
     public static void printEventBadge(BadgeType badgeType) {
         System.out.println(Messages.DECEMBER_EVENT_BADGE);

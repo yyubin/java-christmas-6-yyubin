@@ -14,5 +14,4 @@ public class DateValidator {
             throw new IllegalArgumentException(Messages.INVALID_DATE_ERROR);
         }
     }
-
 }

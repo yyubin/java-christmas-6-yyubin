@@ -22,7 +22,6 @@ public class MenuValidator {
                 break;
             }
         }
-
         if (!hasNonBeverage) {
             validateFailOnlyBeverageOrder();
         }
