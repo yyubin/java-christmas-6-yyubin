@@ -35,10 +35,7 @@ public class EventService {
     }
 
     private boolean isApplyEvent(LocalDate orderDate, EventType eventType) {
-        if (orderDate.isBefore(eventType.getStartDate()) || orderDate.isAfter(eventType.getEndDate())) {
-            return false;
-        }
-        return true;
+        return !orderDate.isBefore(eventType.getStartDate()) && !orderDate.isAfter(eventType.getEndDate());
     }
 
     public BenefitDetail calculateChristmasDdayEvent(LocalDate orderDate) {

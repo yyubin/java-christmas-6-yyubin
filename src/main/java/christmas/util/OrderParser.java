@@ -18,16 +18,13 @@ public class OrderParser {
             OrderMenu orderMenu = parseOrderEntry(entry.trim());
             orderMenus.add(orderMenu);
         }
-
         return orderMenus;
     }
 
     private static OrderMenu parseOrderEntry(String entry) {
         String[] menuAndQuantity = entry.split("-");
 
-        if (menuAndQuantity.length != 2) {
-            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
-        }
+        validateMenuQuantityArray(menuAndQuantity);
 
         String menuName = menuAndQuantity[0].trim();
         int quantity = Integer.parseInt(menuAndQuantity[1].trim());
@@ -38,5 +35,11 @@ public class OrderParser {
                 .orElseThrow(() -> new IllegalArgumentException(Messages.INVALID_ORDER_ERROR));
 
         return new OrderMenu(menu, quantity);
+    }
+
+    private static void validateMenuQuantityArray(String[] menuQuantityArray) {
+        if (menuQuantityArray.length != 2) {
+            throw new IllegalArgumentException(Messages.INVALID_ORDER_ERROR);
+        }
     }
 }
