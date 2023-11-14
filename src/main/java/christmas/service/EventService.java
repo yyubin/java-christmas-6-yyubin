@@ -11,6 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventService {
+
+    private final EventValidator eventValidator;
+
+    public EventService(EventValidator eventValidator) {
+        this.eventValidator = eventValidator;
+    }
+
     public int calculateTotalOrderAmount(List<OrderMenu> orderMenus) {
         int totalAmount = 0;
         for (OrderMenu order : orderMenus) {
@@ -31,7 +38,7 @@ public class EventService {
     }
 
     public boolean isOverEventThreadhold(int totalOrderAmount) {
-        return EventValidator.validateTotalOrderAmount(totalOrderAmount);
+        return eventValidator.validateTotalOrderAmount(totalOrderAmount);
     }
 
     private boolean isApplyEvent(LocalDate orderDate, EventType eventType) {
