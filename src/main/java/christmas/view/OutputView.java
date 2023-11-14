@@ -55,19 +55,17 @@ public class OutputView {
     public static void printBenefitDetails(List<BenefitDetail> benefitDetails) {
         System.out.println(Messages.BENEFIT_HEADER);
 
-        int benefitEventCnt = 0;
         for (BenefitDetail benefit : benefitDetails) {
             if (benefit.getEventType() != EventType.NONE && benefit.getBenefitAmount() > 0) {
                 System.out.println(String.format(Messages.BENEFIT_CONTENT, benefit.getEventType().getEventName(), benefit.getBenefitAmount()));
-                benefitEventCnt++;
             }
         }
-        printBenefitDetailsNone(benefitEventCnt);
+        printBenefitDetailsNone(benefitDetails);
         System.out.println();
     }
 
-    private static void printBenefitDetailsNone(int benefitEventCnt) {
-        if (benefitEventCnt == 0) {
+    private static void printBenefitDetailsNone(List<BenefitDetail> benefitDetails) {
+        if (benefitDetails.isEmpty()) {
             System.out.println(Messages.NO_BENEFIT);
         }
     }
