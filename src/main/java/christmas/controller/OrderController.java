@@ -16,9 +16,11 @@ public class OrderController {
 
     private LocalDate orderDate;
     private int inputOrderDay;
+
     private List<OrderMenu> orderMenus;
-    private int totalOrderAmount;
     private List<BenefitDetail> benefitDetails;
+
+    private int totalOrderAmount;
     private int totalBenefitsAmount;
 
     private final EventService eventService;
