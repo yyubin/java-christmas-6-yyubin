@@ -4,6 +4,7 @@ import christmas.config.BadgeType;
 import christmas.config.EventType;
 import christmas.config.TotalOrderAmount;
 import christmas.model.*;
+import christmas.validator.EventValidator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,13 +21,17 @@ public class EventService {
 
     public List<BenefitDetail> calculateBenefits(LocalDate orderDate, List<OrderMenu> orderMenus, int totalOrderAmount) {
         List<BenefitDetail> benefitDetails = new ArrayList<>();
-
-        benefitDetails.add(calculateChristmasDdayEvent(orderDate));
-        benefitDetails.add(calculateWeekEvent(orderDate, orderMenus));
-        benefitDetails.add(calculateSpecialDiscount(orderDate));
-        benefitDetails.add(calculateEventGiftAmount(orderDate, totalOrderAmount));
-
+        if (isOverEventThreadhold(totalOrderAmount)) {
+            benefitDetails.add(calculateChristmasDdayEvent(orderDate));
+            benefitDetails.add(calculateWeekEvent(orderDate, orderMenus));
+            benefitDetails.add(calculateSpecialDiscount(orderDate));
+            benefitDetails.add(calculateEventGiftAmount(orderDate, totalOrderAmount));
+        };
         return benefitDetails;
+    }
+
+    public boolean isOverEventThreadhold(int totalOrderAmount) {
+        return EventValidator.validateTotalOrderAmount(totalOrderAmount);
     }
 
     private boolean isApplyEvent(LocalDate orderDate, EventType eventType) {
